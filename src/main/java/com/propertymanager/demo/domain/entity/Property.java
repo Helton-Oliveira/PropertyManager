@@ -5,6 +5,8 @@ import com.propertymanager.demo.domain.endereco.Addres;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity(name = "property")
 @Table(name = "properties")
 @NoArgsConstructor
@@ -30,10 +32,6 @@ public class Property {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToOne
-    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
-    private Tenant tenant;
-
     @OneToOne(mappedBy = "property")
-    private Contract contract;
+    private List<Contract> contracts;
 }
