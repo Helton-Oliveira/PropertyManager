@@ -17,7 +17,11 @@ public class Admin extends User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public Admin(String name, String email, String password, String cpf, String phone, Role role) {
         super(name, email, password, cpf, phone, role);
+        this.role = role;
     }
 }

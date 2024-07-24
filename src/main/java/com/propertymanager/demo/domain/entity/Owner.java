@@ -28,6 +28,7 @@ public class Owner extends User {
 
     public Owner(String name, String email, String password, String cpf, String phone, Role role) {
         super(name, email, password, cpf, phone, role);
+        this.role = role;
     }
 
 }

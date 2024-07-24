@@ -5,20 +5,19 @@ import jakarta.validation.constraints.Pattern;
 
 public record AddressDto(
         @NotBlank
-        String logradouro,
+        String publicPlace,
 
         @NotBlank
-        String bairro,
+        String neighborhood,
 
         @NotBlank @Pattern(regexp = "\\d{8}")
-        String cep,
+        String zipCode,
 
         @NotBlank
-        String cidade,
+        String city,
 
         @NotBlank
         String uf,
 
-        String complemento,
-        String numero)  {
+        String number)  {
 }

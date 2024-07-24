@@ -12,20 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Addres {
 
-    private String logradouro;
-    private String bairro;
-    private String cep;
-    private String numero;
-    private String complemento;
-    private String cidade;
+    private String publicPlace;
+    private String neighborhood;
+    private String zipCode;
+    private String number;
+    private String city;
     private String uf;
 
-    public Addres(AddressDto dados) {
-        this.logradouro = dados.logradouro();
-        this.bairro = dados.bairro();
-        this.cep = dados.cep();
-        this.uf = dados.uf();
-        this.cidade = dados.cidade();
-        this.numero = dados.numero();
+    public Addres(AddressDto data) {
+        this.publicPlace = data.publicPlace();
+        this.neighborhood = data.neighborhood();
+        this.zipCode = data.zipCode();
+        this.uf = data.uf();
+        this.city = data.city();
+        this.number = data.number();
     }
 }

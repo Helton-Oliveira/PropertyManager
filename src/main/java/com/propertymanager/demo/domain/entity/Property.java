@@ -32,6 +32,6 @@ public class Property {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToOne(mappedBy = "property")
-    private List<Contract> contracts;
+    @OneToMany(mappedBy = "property")
+    private List<Contract> contract;
 }

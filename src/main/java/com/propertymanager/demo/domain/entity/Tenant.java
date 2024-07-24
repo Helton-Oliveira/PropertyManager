@@ -20,11 +20,15 @@ public class Tenant extends User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "tenant")
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(mappedBy = "tenant")
     private List<Contract> contracts;
 
     public Tenant(String name, String email, String password, String cpf, String phone, Role role) {
         super(name, email, password, cpf, phone, role);
+        this.role = role;
     }
 
 }

@@ -18,11 +18,11 @@ public class Contract {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "tenant_id")
     private Tenant tenant;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "property_id")
     private Property property;
 
