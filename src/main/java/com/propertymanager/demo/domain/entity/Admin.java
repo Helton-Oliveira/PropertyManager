@@ -2,6 +2,7 @@ package com.propertymanager.demo.domain.entity;
 
 import com.propertymanager.demo.domain.abstractModels.Role;
 import com.propertymanager.demo.domain.abstractModels.User;
+import com.propertymanager.demo.domain.dtos.AdminRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,17 +12,14 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(callSuper = true)
 public class Admin extends User {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Admin(String name, String email, String password, String cpf, String phone, Role role) {
-        super(name, email, password, cpf, phone, role);
-        this.role = role;
+    public Admin(AdminRequest data) {
+        super(data.name(), data.email(), data.password(), data.cpf(), data.phone());
+        this.role = data.role();
     }
 }
