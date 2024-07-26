@@ -24,6 +24,7 @@ public class Owner {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Boolean active;
     private String name;
     private String cpf;
 

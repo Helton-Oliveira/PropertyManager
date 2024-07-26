@@ -26,6 +26,7 @@ public class Tenant{
     @JoinColumn(name = "user_id")
     private User user;
 
+    private Boolean active;
     private String name;
     private String cpf;
 

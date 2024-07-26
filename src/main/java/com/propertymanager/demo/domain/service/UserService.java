@@ -25,10 +25,23 @@ public class UserService {
     }
 
     public UserResponse created(UserRequest data) {
-        System.out.println(data);
         var user = new User(data);
         userRepository.save(user);
 
         return new UserResponse(user);
+    }
+
+    public UserResponse update(UserRequest req, Long id) {
+        var user = userRepository.getReferenceById(id);
+        user.updateInfo(req);
+        userRepository.save(user);
+
+        return new UserResponse(user);
+    }
+
+    public void delete(Long id) {
+        var user = userRepository.getReferenceById(id);
+        user.exclude();
+        userRepository.save(user);
     }
 }
