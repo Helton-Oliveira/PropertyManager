@@ -34,9 +34,9 @@ public class UserController {
 
     @PostMapping()
     @Transactional()
-    public ResponseEntity createUser(@RequestBody @Valid UserRequest req, UriComponentsBuilder uriBuilde) {
+    public ResponseEntity createUser(@RequestBody @Valid UserRequest req, UriComponentsBuilder uriBuild) {
         var userCreated = userService.created(req);
-        var uri = uriBuilde.path("/admin/{id}").buildAndExpand(userCreated.id()).toUri();
+        var uri = uriBuild.path("/admin/{id}").buildAndExpand(userCreated.id()).toUri();
 
         return ResponseEntity.created(uri).body(userCreated);
     }
