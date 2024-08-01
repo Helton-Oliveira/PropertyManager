@@ -1,6 +1,5 @@
 package com.propertymanager.demo.domain.entity;
 
-import com.propertymanager.demo.domain.abstractModels.Role;
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +13,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "role")
+@DiscriminatorValue("ADMIN")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,16 +24,6 @@ public class User {
     private String password;
     private String cpf;
     private String phone;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Tenant tenant;
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Owner owner;
-
     private Boolean active;
 
     public User(UserRequest user) {
@@ -41,7 +33,6 @@ public class User {
         this.password = user.password();
         this.cpf = user.cpf();
         this.phone = user.phone();
-        this.role = user.role();
     }
 
     public void updateInfo(UserRequest user) {

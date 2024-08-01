@@ -21,38 +21,47 @@ public class UserController {
     private UserService userService;
 
     @GetMapping()
-    public ResponseEntity<Page<UserResponse>> getAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
-        var users = userService.getAllUsers(page);
+    public ResponseEntity<Page<UserResponse>> getAllUsers(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
+        var users = userService.fetchAllUsers(page);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getOne(@PathVariable Long id) {
-        var user = userService.getOneUser(id);
+    public ResponseEntity<UserResponse> findUserByid(@PathVariable Long id) {
+        var user = userService.getUserDetailsById(id);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping()
     @Transactional()
-    public ResponseEntity createUser(@RequestBody @Valid UserRequest req, UriComponentsBuilder uriBuild) {
-        var userCreated = userService.created(req);
+    public ResponseEntity addUser(@RequestBody @Valid UserRequest req, UriComponentsBuilder uriBuild) {
+        var userCreated = userService.createUserAccount(req);
         var uri = uriBuild.path("/admin/{id}").buildAndExpand(userCreated.id()).toUri();
+
+        return ResponseEntity.created(uri).body(userCreated);
+    }
+
+    @PostMapping("/tenants")
+    @Transactional()
+    public ResponseEntity addTenant(@RequestBody @Valid UserRequest req, UriComponentsBuilder uriBuild) {
+        var userCreated = userService.createTenantAccount(req);
+        var uri = uriBuild.path("/admin/createT/{id}").buildAndExpand(userCreated.id()).toUri();
 
         return ResponseEntity.created(uri).body(userCreated);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateUser(@RequestBody UserRequest req, @PathVariable Long id) {
-        var response = userService.update(req, id);
+    public ResponseEntity updateUserDetails(@RequestBody UserRequest req, @PathVariable Long id) {
+        var response = userService.updateUserAccount(req, id);
 
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity deleteUser(@PathVariable Long id) {
-        userService.delete(id);
+    public ResponseEntity removeUser(@PathVariable Long id) {
+        userService.deleteUserAccount(id);
         return ResponseEntity.noContent().build();
     }
 
