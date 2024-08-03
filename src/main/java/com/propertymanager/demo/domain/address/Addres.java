@@ -1,6 +1,5 @@
 package com.propertymanager.demo.domain.address;
 
-import com.propertymanager.demo.domain.dtos.AddressDto;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,12 +18,4 @@ public class Addres {
     private String city;
     private String uf;
 
-    public Addres(AddressDto data) {
-        this.publicPlace = data.publicPlace();
-        this.neighborhood = data.neighborhood();
-        this.zipCode = data.zipCode();
-        this.uf = data.uf();
-        this.city = data.city();
-        this.number = data.number();
-    }
 }

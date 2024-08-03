@@ -1,29 +1,30 @@
-/*
 package com.propertymanager.demo.domain.service;
 
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
+import com.propertymanager.demo.domain.entity.Tenant;
 import com.propertymanager.demo.domain.repository.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TenantService {
+public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserRequest> {
 
     @Autowired
     private TenantRepository tenantRepository;
 
-    public UserResponse getTenantDetailsById(Long id) {
-        var tenant = tenantRepository.getReferenceById(id);
-        return new UserResponse(tenant);
+    public TenantService() {
+        super(UserResponse.class, Tenant.class);
     }
 
-    public UserResponse updateTenantAccount(UserRequest req, Long id) {
-        var tenant = tenantRepository.getReferenceById(id);
-        tenant.updateInfo(req);
-        tenantRepository.save(tenant);
-
-        return new UserResponse(tenant);
+    @Override
+    public boolean delete(Long id) {
+        if (tenantRepository.existsById(id)) {
+            var entity = tenantRepository.getReferenceById(id);
+            entity.setActive(false);
+            tenantRepository.save(entity);
+            return true;
+        }
+        return false;
     }
 }
-*/

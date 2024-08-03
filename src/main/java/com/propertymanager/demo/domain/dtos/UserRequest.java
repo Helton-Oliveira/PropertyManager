@@ -21,7 +21,7 @@ public class UserRequest {
         private String password;
 
         @NotBlank
-        @Pattern(regexp = "\\d{4}")
+        @Pattern(regexp = "\\d{11}")
         private String cpf;
 
         @NotBlank
