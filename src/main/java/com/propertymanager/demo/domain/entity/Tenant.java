@@ -1,6 +1,5 @@
 package com.propertymanager.demo.domain.entity;
 
-import com.propertymanager.demo.domain.dtos.TenantResponse;
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -24,10 +23,10 @@ public class Tenant extends User {
 
     public Tenant(UserRequest user) {
         this.setActive(true);
-        this.setName(user.name());
-        this.setEmail(user.email());
-        this.setPassword(user.password());
-        this.setCpf(user.cpf());
-        this.setPhone(user.phone());
+        this.setName(user.getName());
+        this.setEmail(user.getEmail());
+        this.setPassword(user.getPassword());
+        this.setCpf(user.getCpf());
+        this.setPhone(user.getPhone());
     }
 }

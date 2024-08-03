@@ -1,7 +1,7 @@
 package com.propertymanager.demo.domain.entity;
 
 import com.propertymanager.demo.domain.abstractModels.TypeProperty;
-import com.propertymanager.demo.domain.endereco.Addres;
+import com.propertymanager.demo.domain.address.Addres;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +22,7 @@ public class Property {
     private Addres addres;
 
     @Enumerated(EnumType.STRING)
-    private TypeProperty type;
+    private TypeProperty typeProperty;
 
     private String rentalValue;
     private String description;

@@ -1,4 +1,4 @@
-package com.propertymanager.demo.domain.endereco;
+package com.propertymanager.demo.domain.address;
 
 import com.propertymanager.demo.domain.dtos.AddressDto;
 import jakarta.persistence.Embeddable;

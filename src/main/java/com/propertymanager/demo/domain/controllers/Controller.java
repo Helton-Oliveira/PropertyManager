@@ -1,0 +1,54 @@
+package com.propertymanager.demo.domain.controllers;
+
+import com.propertymanager.demo.domain.service.ServiceImpl;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+
+@RestController
+public abstract class Controller<T, ID, R, M> {
+
+    @Autowired
+    protected ServiceImpl<T, ID, R, M> service;
+
+    @GetMapping
+    public ResponseEntity<Page<R>> getAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
+        var response = service.findAll(page);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getOne(@PathVariable ID id) {
+        var response = service.findById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity create(@RequestBody @Valid M req) throws IOException {
+        var response = service.save(req);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity updateEntity(@RequestBody M req, @PathVariable ID id) {
+        var response = service.update(id, req);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteEntity(@PathVariable ID id) {
+        var isDeleted = service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}

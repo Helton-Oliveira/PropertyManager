@@ -24,33 +24,33 @@ public class User {
     private String password;
     private String cpf;
     private String phone;
-    private Boolean active;
+    private Boolean active = true;
 
-    public User(UserRequest user) {
+    /*public User(UserRequest user) {
         this.active = true;
-        this.name = user.name();
-        this.email = user.email();
-        this.password = user.password();
-        this.cpf = user.cpf();
-        this.phone = user.phone();
-    }
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.cpf = user.getCpf();
+        this.phone = user.getPhone();*/
+   // }
 
     public void updateInfo(UserRequest user) {
 
-        if(user.name() != null) {
-            this.name = user.name();
+        if(user.getName() != null) {
+            this.name = user.getName();
         }
 
-        if(user.email() != null) {
-            this.email = user.email();
+        if(user.getEmail() != null) {
+            this.email = user.getEmail();
         }
 
-        if(user.cpf() != null) {
-            this.cpf = user.cpf();
+        if(user.getCpf() != null) {
+            this.cpf = user.getCpf();
         }
 
-        if(user.phone() != null) {
-            this.phone = user.phone();
+        if(user.getPhone() != null) {
+            this.phone = user.getPhone();
         }
     }
 
