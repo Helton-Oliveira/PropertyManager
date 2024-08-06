@@ -1,5 +1,7 @@
 package com.propertymanager.demo.domain.database.entity;
 
+import com.propertymanager.demo.domain.dtos.ContractRequest;
+import com.propertymanager.demo.utils.DateUtils;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,4 +33,12 @@ public class Contract {
     private LocalDateTime created;
     private LocalDate validity;
 
+    public Contract(Property property, Tenant tenant, ContractRequest req) {
+        this.tenant = tenant;
+        this.property = property;
+        this.status = true;
+        this.negotiatedPrice = property.getRentalValue();
+        this.created = LocalDateTime.now();
+        this.validity = DateUtils.calculateFutureDate(this.getCreated(), req.getContractPeriod());
+    }
 }

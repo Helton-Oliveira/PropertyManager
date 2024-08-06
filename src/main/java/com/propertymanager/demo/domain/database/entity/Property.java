@@ -42,4 +42,8 @@ public class Property {
         this.description = req.getDescription();
         this.addres = new Addres(req.getAddressDto());
     }
+
+    public void toHire() {
+        this.rented = true;
+    }
 }
