@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> {
+import java.lang.reflect.Method;
+
+public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> {
 
     @Autowired
     private JpaRepository<T, ID> repository;
@@ -59,5 +61,7 @@ public class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> {
         }
         return false;
     }
+
+
 }
 

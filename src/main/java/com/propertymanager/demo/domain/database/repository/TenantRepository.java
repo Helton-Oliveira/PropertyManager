@@ -1,6 +1,6 @@
-package com.propertymanager.demo.domain.repository;
+package com.propertymanager.demo.domain.database.repository;
 
-import com.propertymanager.demo.domain.entity.Tenant;
+import com.propertymanager.demo.domain.database.entity.Tenant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

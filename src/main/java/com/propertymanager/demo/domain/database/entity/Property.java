@@ -1,7 +1,8 @@
-package com.propertymanager.demo.domain.entity;
+package com.propertymanager.demo.domain.database.entity;
 
 import com.propertymanager.demo.domain.abstractModels.TypeProperty;
 import com.propertymanager.demo.domain.address.Addres;
+import com.propertymanager.demo.domain.dtos.PropertyRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,10 +24,9 @@ public class Property {
 
     @Enumerated(EnumType.STRING)
     private TypeProperty typeProperty;
-
     private String rentalValue;
     private String description;
-    private Boolean rented;
+    private Boolean rented = false;
 
     @ManyToOne()
     @JoinColumn(name = "owner_id")
@@ -34,4 +34,12 @@ public class Property {
 
     @OneToMany(mappedBy = "property")
     private List<Contract> contract;
+
+    public Property(PropertyRequest req, Owner owner) {
+        this.typeProperty = req.getTypeProperty();
+        this.rentalValue = req.getRentalValue();
+        this.owner = owner;
+        this.description = req.getDescription();
+        this.addres = new Addres(req.getAddressDto());
+    }
 }

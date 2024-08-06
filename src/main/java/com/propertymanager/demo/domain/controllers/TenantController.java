@@ -2,7 +2,7 @@ package com.propertymanager.demo.domain.controllers;
 
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
-import com.propertymanager.demo.domain.entity.Tenant;
+import com.propertymanager.demo.domain.database.entity.Tenant;
 import com.propertymanager.demo.domain.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -2,8 +2,8 @@ package com.propertymanager.demo.domain.service;
 
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
-import com.propertymanager.demo.domain.entity.Tenant;
-import com.propertymanager.demo.domain.repository.TenantRepository;
+import com.propertymanager.demo.domain.database.entity.Tenant;
+import com.propertymanager.demo.domain.database.repository.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -23,5 +23,6 @@ public class AddressDto {
     @NotBlank
     private String uf;
 
+    @NotBlank
     private String number;
 }

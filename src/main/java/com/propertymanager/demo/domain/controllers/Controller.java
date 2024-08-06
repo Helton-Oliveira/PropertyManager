@@ -9,8 +9,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.net.URI;
 
 @RestController
 public abstract class Controller<T, ID, R, M> {
@@ -32,10 +36,19 @@ public abstract class Controller<T, ID, R, M> {
 
     @PostMapping
     @Transactional
-    public ResponseEntity create(@RequestBody @Valid M req) throws IOException {
+    public ResponseEntity create(@RequestBody @Valid M req) throws IOException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         var response = service.save(req);
-
-        return ResponseEntity.ok(response);
+        if(response == null) {
+            return ResponseEntity.badRequest().body("Erro ao criar propriedade!");
+        }
+        var id = response.getClass().getMethod("getId").invoke(response);
+        System.out.println(id);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(location).body(response);
     }
 
     @PutMapping("/{id}")
@@ -50,5 +63,7 @@ public abstract class Controller<T, ID, R, M> {
         var isDeleted = service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+
 
 }

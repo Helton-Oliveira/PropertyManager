@@ -1,4 +1,4 @@
-package com.propertymanager.demo.domain.entity;
+package com.propertymanager.demo.domain.database.entity;
 
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import jakarta.persistence.DiscriminatorValue;
