@@ -41,4 +41,14 @@ public class ContractResponse {
         this.validity = contract.getValidity();
         this.period = req.getContractPeriod();
     }
+
+    public ContractResponse(Contract contract) {
+        this.id = contract.getId();
+        this.tenantId = contract.getTenant().getId();
+        this.propertyId = contract.getProperty().getId();
+        this.negotiatedPrice = contract.getNegotiatedPrice();
+        this.status = contract.getStatus();
+        this.created = contract.getCreated();
+        this.validity = contract.getValidity();
+    }
 }

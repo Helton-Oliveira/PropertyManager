@@ -7,6 +7,8 @@ import com.propertymanager.demo.domain.database.repository.TenantRepository;
 import com.propertymanager.demo.domain.dtos.ContractResponse;
 import com.propertymanager.demo.domain.dtos.ContractRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,5 +40,11 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
              return new ContractResponse(contract, req, property.get());
         }
         return null;
+    }
+
+    @Override
+    public Page<ContractResponse> findAll(Pageable page) {
+        return contractRepository.findAll(page)
+                .map(ContractResponse::new);
     }
 }

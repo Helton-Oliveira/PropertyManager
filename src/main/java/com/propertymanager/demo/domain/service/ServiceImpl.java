@@ -2,20 +2,19 @@ package com.propertymanager.demo.domain.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.propertymanager.demo.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.lang.reflect.Method;
-
 public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> {
 
     @Autowired
     private JpaRepository<T, ID> repository;
 
-    private final ObjectMapper mapper = new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule()).disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 
     private final Class<R> data;
     private final Class<T> entityClass;
@@ -28,7 +27,7 @@ public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> 
     @Override
     public Page<R> findAll(Pageable page) {
         return repository.findAll(page)
-                .map(e -> mapper.convertValue(e, data));
+                .map(e ->  mapper.convertValue(e, data));
     }
     @Override
     public R findById(ID id) {

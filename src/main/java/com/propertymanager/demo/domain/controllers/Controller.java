@@ -23,7 +23,7 @@ public abstract class Controller<T, ID, R, M> {
     protected ServiceImpl<T, ID, R, M> service;
 
     @GetMapping
-    public ResponseEntity<Page<R>> getAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
+    public ResponseEntity<Page<R>> getAll(@PageableDefault(size = 10) Pageable page) {
         var response = service.findAll(page);
         return ResponseEntity.ok(response);
     }

@@ -6,6 +6,8 @@ import com.propertymanager.demo.domain.dtos.PropertyResponse;
 import com.propertymanager.demo.domain.database.entity.Property;
 import com.propertymanager.demo.domain.database.repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,5 +34,9 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
         return null;
     }
 
-
+    @Override
+    public Page<PropertyResponse> findAll(Pageable page) {
+        return propertyRepository.findAll(page)
+                .map(PropertyResponse::new);
+    }
 }

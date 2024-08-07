@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity(name = "contract")
 @Table(name = "contracts")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -40,5 +39,18 @@ public class Contract {
         this.negotiatedPrice = property.getRentalValue();
         this.created = LocalDateTime.now();
         this.validity = DateUtils.calculateFutureDate(this.getCreated(), req.getContractPeriod());
+    }
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "id=" + id +
+                ", tenant=" + tenant +
+                ", property=" + property +
+                ", status=" + status +
+                ", negotiatedPrice='" + negotiatedPrice + '\'' +
+                ", created=" + created +
+                ", validity=" + validity +
+                '}';
     }
 }

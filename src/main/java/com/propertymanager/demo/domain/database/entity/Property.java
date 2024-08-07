@@ -26,17 +26,15 @@ public class Property {
     private TypeProperty typeProperty;
     private String rentalValue;
     private String description;
-    private Boolean rented = false;
+    private Boolean rented;
 
     @ManyToOne()
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @OneToMany(mappedBy = "property")
-    private List<Contract> contract;
-
     public Property(PropertyRequest req, Owner owner) {
         this.typeProperty = req.getTypeProperty();
+        this.rented = false;
         this.rentalValue = req.getRentalValue();
         this.owner = owner;
         this.description = req.getDescription();
