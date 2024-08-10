@@ -10,6 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 public class PropertyService extends ServiceImpl<Property, Long, PropertyResponse, PropertyRequest> {
 
@@ -37,6 +40,21 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
     @Override
     public Page<PropertyResponse> findAll(Pageable page) {
         return propertyRepository.findAll(page)
+                .map(PropertyResponse::new);
+    }
+
+    public Page<PropertyResponse> filterByLocation(Map<String, String> req, Pageable page) {
+        Map<String, String> modifiedParams = req.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> "address." + entry.getKey(),
+                        Map.Entry::getValue
+                ));
+        return propertyRepository.searchByCriteria(Property.class, modifiedParams, page)
+                .map(PropertyResponse::new);
+    }
+
+    public Page<PropertyResponse> filterbyCriteria(Pageable page, Map<String, String> queryParams) {
+        return propertyRepository.searchByCriteria(Property.class, queryParams, page)
                 .map(PropertyResponse::new);
     }
 }

@@ -40,6 +40,6 @@ public class PropertyResponse {
         this.description = property.getDescription();
         this.ownerId = property.getOwner().getId();
         this.rented = property.getRented();
-        this.addressDto = new AddressDto(property.getAddres());
+        this.addressDto = new AddressDto(property.getAddress());
     }
 }

@@ -6,8 +6,6 @@ import com.propertymanager.demo.domain.dtos.PropertyRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity(name = "property")
 @Table(name = "properties")
 @NoArgsConstructor
@@ -20,7 +18,7 @@ public class Property {
     private Long id;
 
     @Embedded
-    private Addres addres;
+    private Addres address;
 
     @Enumerated(EnumType.STRING)
     private TypeProperty typeProperty;
@@ -38,7 +36,7 @@ public class Property {
         this.rentalValue = req.getRentalValue();
         this.owner = owner;
         this.description = req.getDescription();
-        this.addres = new Addres(req.getAddressDto());
+        this.address = new Addres(req.getAddressDto());
     }
 
     public void toHire() {

@@ -1,6 +1,7 @@
 package com.propertymanager.demo.domain.database.repository;
 
 import com.propertymanager.demo.domain.database.entity.Tenant;
+import com.propertymanager.demo.domain.database.repository.custom.RepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface TenantRepository extends JpaRepository<Tenant, Long> {
+public interface TenantRepository extends JpaRepository<Tenant, Long>, RepositoryCustom<Tenant> {
     Page<Tenant> findByActiveTrue(Pageable page);
 
 

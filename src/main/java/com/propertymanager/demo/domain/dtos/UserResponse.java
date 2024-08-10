@@ -2,6 +2,7 @@ package com.propertymanager.demo.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.propertymanager.demo.domain.database.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,11 @@ public class UserResponse {
     private String password;
 
 
+    public UserResponse(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.cpf = user.getCpf();
+        this.phone = user.getPhone();
+        this.email = user.getEmail();
+    }
 }

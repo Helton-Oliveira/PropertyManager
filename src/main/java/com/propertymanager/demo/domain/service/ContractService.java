@@ -4,12 +4,14 @@ import com.propertymanager.demo.domain.database.entity.Contract;
 import com.propertymanager.demo.domain.database.repository.ContractRepository;
 import com.propertymanager.demo.domain.database.repository.PropertyRepository;
 import com.propertymanager.demo.domain.database.repository.TenantRepository;
-import com.propertymanager.demo.domain.dtos.ContractResponse;
 import com.propertymanager.demo.domain.dtos.ContractRequest;
+import com.propertymanager.demo.domain.dtos.ContractResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class ContractService extends ServiceImpl<Contract, Long, ContractResponse, ContractRequest> {
@@ -45,6 +47,11 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
     @Override
     public Page<ContractResponse> findAll(Pageable page) {
         return contractRepository.findAll(page)
+                .map(ContractResponse::new);
+    }
+
+    public Page<ContractResponse> findByCriteria(Pageable page, Map<String, String> req) {
+        return contractRepository.searchByCriteria(Contract.class, req, page)
                 .map(ContractResponse::new);
     }
 }
