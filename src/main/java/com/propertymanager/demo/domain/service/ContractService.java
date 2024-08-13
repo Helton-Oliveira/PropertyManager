@@ -50,8 +50,4 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
                 .map(ContractResponse::new);
     }
 
-    public Page<ContractResponse> findByCriteria(Pageable page, Map<String, String> req) {
-        return contractRepository.searchByCriteria(Contract.class, req, page)
-                .map(ContractResponse::new);
-    }
 }

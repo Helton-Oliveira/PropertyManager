@@ -32,10 +32,4 @@ public class UserService extends ServiceImpl<User, Long, UserResponse, UserReque
         return false;
     }
 
-
-    public Page<UserResponse> findByCriteria(Pageable page, Map<String, String> queryParams) {
-        return userRepository.searchByCriteria(User.class, queryParams, page)
-                .map(UserResponse::new);
-    }
-
 }

@@ -32,8 +32,4 @@ public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserR
         return false;
     }
 
-    public Page<UserResponse> findByCriteria(Pageable page, Map<String, String> req) {
-        return tenantRepository.searchByCriteria(Tenant.class, req, page)
-                .map(UserResponse::new);
-    }
 }

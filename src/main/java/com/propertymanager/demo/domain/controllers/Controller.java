@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.util.Map;
 
 @RestController
 public abstract class Controller<T, ID, R, M> {
@@ -30,6 +31,12 @@ public abstract class Controller<T, ID, R, M> {
     @GetMapping("/{id}")
     public ResponseEntity getOne(@PathVariable ID id) {
         var response = service.findById(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/q")
+    public ResponseEntity<Page<R>> searchByCriteria(@PageableDefault(size = 10) Pageable page, @RequestParam Map<String, String> req) {
+        var response = service.findByCriteria(req, page);
         return ResponseEntity.ok(response);
     }
 

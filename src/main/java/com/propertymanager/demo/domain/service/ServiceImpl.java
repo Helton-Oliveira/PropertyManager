@@ -3,18 +3,25 @@ package com.propertymanager.demo.domain.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.propertymanager.demo.domain.database.repository.custom.RepositoryCustom;
 import com.propertymanager.demo.utils.BeanUtil;
+import com.propertymanager.demo.utils.ObjectMapperCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> {
+import java.util.Map;
+
+public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M>{
 
     @Autowired
     private JpaRepository<T, ID> repository;
 
-    private final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule()).disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+    @Autowired
+    private RepositoryCustom<T> custom;
+
+    private final ObjectMapper mapper = new ObjectMapperCustom().createObjectMapper();
 
     private final Class<R> data;
     private final Class<T> entityClass;
@@ -61,6 +68,10 @@ public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> 
         return false;
     }
 
-
+    @Override
+    public Page<R> findByCriteria(Map<String, String> queryParams, Pageable page) {
+        var query = custom.searchByCriteria(entityClass, queryParams, page);
+        return query.map(m -> mapper.convertValue(m, data));
+    }
 }
 

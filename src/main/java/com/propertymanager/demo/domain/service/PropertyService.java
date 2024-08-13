@@ -32,7 +32,7 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
         if (owner.isPresent()) {
             var property = new Property(req, owner.get());
             propertyRepository.save(property);
-            return new PropertyResponse(property, req);
+            return new PropertyResponse(property, req, owner.get());
         }
         return null;
     }
@@ -49,12 +49,7 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
                         entry -> "address." + entry.getKey(),
                         Map.Entry::getValue
                 ));
-        return propertyRepository.searchByCriteria(Property.class, modifiedParams, page)
-                .map(PropertyResponse::new);
+        return super.findByCriteria(modifiedParams, page);
     }
 
-    public Page<PropertyResponse> filterbyCriteria(Pageable page, Map<String, String> queryParams) {
-        return propertyRepository.searchByCriteria(Property.class, queryParams, page)
-                .map(PropertyResponse::new);
-    }
 }

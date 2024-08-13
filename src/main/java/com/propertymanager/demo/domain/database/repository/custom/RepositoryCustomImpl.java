@@ -20,9 +20,9 @@ public class RepositoryCustomImpl<T> implements RepositoryCustom<T> {
 
     @Override
     public Page<T> searchByCriteria(Class<T> entityClass, Map<String, String> query, Pageable pageable) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = cb.createQuery(entityClass);
-        Root<T> root = criteriaQuery.from(entityClass);
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder(); // CriteriaBuilder para cuidar dos criterios de resposta como ordenacao, limite de resultados paginacao etc...
+        CriteriaQuery<T> criteriaQuery = cb.createQuery(entityClass); // CriteriaQuery com metodo createQuery que sera res[pstavel pelas clausulas SQL como por exemplo SELECT, FROM, WHERER, AND etc..
+        Root<T> root = criteriaQuery.from(entityClass); // Root<T> que sera a classe raiz ou referenciando o JPQL um alias para a classe algo equivalente a "SELECT * FROM"
 
         List<Predicate> predicates = new ArrayList<>();
 

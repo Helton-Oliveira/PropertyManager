@@ -35,11 +35,5 @@ public class PropertyController extends Controller<Property, Long, PropertyRespo
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/q")
-    public ResponseEntity<Page<PropertyResponse>> getPropertiesByType(@PageableDefault(size = 10) Pageable page, @RequestParam Map<String, String> queryParams) {
-        var response = propertyService.filterbyCriteria(page, queryParams);
-        return ResponseEntity.ok(response);
-    }
-
 
 }

@@ -20,8 +20,4 @@ public class OwnerService extends ServiceImpl<Owner, Long,UserResponse, UserRequ
         super(UserResponse.class, Owner.class);
     }
 
-    public Page<UserResponse> findByCriteria(Pageable page, Map<String, String> req) {
-        return ownerRepository.searchByCriteria(Owner.class, req, page)
-                .map(UserResponse::new);
-    }
 }
