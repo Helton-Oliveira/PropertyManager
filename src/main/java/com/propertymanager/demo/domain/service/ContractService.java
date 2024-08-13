@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ContractService extends ServiceImpl<Contract, Long, ContractResponse, ContractRequest> {
@@ -48,6 +49,16 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
     public Page<ContractResponse> findAll(Pageable page) {
         return contractRepository.findAll(page)
                 .map(ContractResponse::new);
+    }
+
+    public Page<ContractResponse> filterByEntity(Map<String, String> req, Pageable page) {
+        Map<String, String> modifiedParams = req.entrySet().stream()
+                .collect(Collectors.toMap(
+                        entry -> entry.getKey() + ".id",
+                                Map.Entry::getValue
+                ));
+        System.out.println(modifiedParams);
+        return super.findByCriteria(modifiedParams, page);
     }
 
 }

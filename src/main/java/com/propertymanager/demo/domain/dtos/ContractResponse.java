@@ -23,19 +23,17 @@ import java.time.LocalDateTime;
 public class ContractResponse {
 
     private Long id;
+    private String negotiatedPrice;
+    private Boolean status;
+    private LocalDateTime created;
+    private ContractPeriod period;
+    private LocalDate validity;
 
     @JsonAlias("tenant")
     private Tenant tenantId;
 
     @JsonAlias("property")
     private Property propertyId;
-    private String negotiatedPrice;
-    private Boolean status;
-    private LocalDateTime created;
-    private ContractPeriod period;
-
-
-    private LocalDate validity;
 
     public ContractResponse(Contract contract, ContractRequest req, Property property) {
         this.id = contract.getId();
