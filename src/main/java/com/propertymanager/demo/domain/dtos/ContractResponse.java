@@ -1,12 +1,8 @@
 package com.propertymanager.demo.domain.dtos;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.propertymanager.demo.domain.abstractModels.ContractPeriod;
 import com.propertymanager.demo.domain.database.entity.Contract;
-import com.propertymanager.demo.domain.database.entity.Property;
-import com.propertymanager.demo.domain.database.entity.Tenant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,31 +24,19 @@ public class ContractResponse {
     private LocalDateTime created;
     private ContractPeriod period;
     private LocalDate validity;
+    private Long propertyId;
+    private Long tenantId;
 
-    @JsonAlias("tenant")
-    private Tenant tenantId;
 
-    @JsonAlias("property")
-    private Property propertyId;
-
-    public ContractResponse(Contract contract, ContractRequest req, Property property) {
+    public ContractResponse(Contract contract, ContractRequest req) {
         this.id = contract.getId();
-        this.tenantId = contract.getTenant();
-        this.propertyId = property;
-        this.negotiatedPrice = property.getRentalValue();
+        this.tenantId = contract.getTenant().getId();
+        this.propertyId = contract.getProperty().getId();
+        this.negotiatedPrice = contract.getNegotiatedPrice();
         this.status = true;
         this.created = contract.getCreated();
         this.validity = contract.getValidity();
         this.period = req.getContractPeriod();
     }
 
-    public ContractResponse(Contract contract) {
-        this.id = contract.getId();
-        this.tenantId = contract.getTenant();
-        this.propertyId = contract.getProperty();
-        this.negotiatedPrice = contract.getNegotiatedPrice();
-        this.status = contract.getStatus();
-        this.created = contract.getCreated();
-        this.validity = contract.getValidity();
-    }
 }

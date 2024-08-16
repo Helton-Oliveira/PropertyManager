@@ -1,10 +1,10 @@
 package com.propertymanager.demo.domain.service;
 
-import com.propertymanager.demo.domain.database.repository.OwnerRepository;
-import com.propertymanager.demo.domain.dtos.PropertyRequest;
-import com.propertymanager.demo.domain.dtos.PropertyResponse;
 import com.propertymanager.demo.domain.database.entity.Property;
 import com.propertymanager.demo.domain.database.repository.PropertyRepository;
+import com.propertymanager.demo.domain.dtos.PropertyRequest;
+import com.propertymanager.demo.domain.dtos.PropertyResponse;
+import com.propertymanager.demo.mappers.PropertyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,28 +20,23 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
     private PropertyRepository propertyRepository;
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    private OwnerService ownerService;
 
-    public PropertyService() {
-        super(PropertyResponse.class, Property.class);
+    public PropertyService(PropertyMapper mapper) {
+        super(Property.class, PropertyResponse.class, mapper);
     }
 
     @Override
     public PropertyResponse save(PropertyRequest req) {
-        var owner = ownerRepository.findById(req.getOwnerId());
-        if (owner.isPresent()) {
-            var property = new Property(req, owner.get());
-            propertyRepository.save(property);
-            return new PropertyResponse(property, req, owner.get());
+        var owner = ownerService.findById(req.getOwnerId());
+        if (owner == null) {
+            return null;
         }
-        return null;
+        var property = new Property(req, owner);
+        propertyRepository.save(property);
+        return new PropertyResponse(property, req);
     }
 
-    @Override
-    public Page<PropertyResponse> findAll(Pageable page) {
-        return propertyRepository.findAll(page)
-                .map(PropertyResponse::new);
-    }
 
     public Page<PropertyResponse> filterByLocation(Map<String, String> req, Pageable page) {
         Map<String, String> modifiedParams = req.entrySet().stream()
@@ -50,6 +45,15 @@ public class PropertyService extends ServiceImpl<Property, Long, PropertyRespons
                         Map.Entry::getValue
                 ));
         return super.findByCriteria(modifiedParams, page);
+    }
+
+    public void upgradeToRented(Property property) {
+        property.toHire();
+        propertyRepository.save(property);
+    }
+
+    public Property getReferencePropertyById(Long id) {
+        return propertyRepository.getReferenceById(id);
     }
 
 }

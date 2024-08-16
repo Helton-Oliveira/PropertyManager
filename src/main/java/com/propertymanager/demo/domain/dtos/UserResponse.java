@@ -24,7 +24,6 @@ public class UserResponse {
    @JsonIgnore
     private String password;
 
-
     public UserResponse(User user) {
         this.id = user.getId();
         this.name = user.getName();

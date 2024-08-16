@@ -4,12 +4,9 @@ import com.propertymanager.demo.domain.database.entity.Tenant;
 import com.propertymanager.demo.domain.database.repository.TenantRepository;
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
+import com.propertymanager.demo.mappers.TenantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserRequest> {
@@ -17,8 +14,8 @@ public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserR
     @Autowired
     private TenantRepository tenantRepository;
 
-    public TenantService() {
-        super(UserResponse.class, Tenant.class);
+    public TenantService(TenantMapper mapper) {
+        super(Tenant.class, UserResponse.class, mapper);
     }
 
     @Override
@@ -32,4 +29,7 @@ public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserR
         return false;
     }
 
+    public Tenant getReferenceTenantById(Long id) {
+        return tenantRepository.getReferenceById(id);
+    }
 }

@@ -1,6 +1,8 @@
 package com.propertymanager.demo.domain.database.entity;
 
 import com.propertymanager.demo.domain.dtos.ContractRequest;
+import com.propertymanager.demo.domain.dtos.PropertyResponse;
+import com.propertymanager.demo.domain.dtos.UserResponse;
 import com.propertymanager.demo.utils.DateUtils;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity(name = "contract")
 @Table(name = "contracts")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
@@ -35,7 +38,7 @@ public class Contract {
     public Contract(Property property, Tenant tenant, ContractRequest req) {
         this.tenant = tenant;
         this.property = property;
-        this.status = true;
+         this.status = true;
         this.negotiatedPrice = property.getRentalValue();
         this.created = LocalDateTime.now();
         this.validity = DateUtils.calculateFutureDate(this.getCreated(), req.getContractPeriod());

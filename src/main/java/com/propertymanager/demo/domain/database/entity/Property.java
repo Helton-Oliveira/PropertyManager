@@ -3,6 +3,7 @@ package com.propertymanager.demo.domain.database.entity;
 import com.propertymanager.demo.domain.abstractModels.TypeProperty;
 import com.propertymanager.demo.domain.address.Addres;
 import com.propertymanager.demo.domain.dtos.PropertyRequest;
+import com.propertymanager.demo.domain.dtos.UserResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,16 +31,29 @@ public class Property {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    public Property(PropertyRequest req, Owner owner) {
+    public Property(PropertyRequest req, UserResponse owner) {
         this.typeProperty = req.getTypeProperty();
         this.rented = false;
         this.rentalValue = req.getRentalValue();
-        this.owner = owner;
+        this.owner = new Owner(owner);
         this.description = req.getDescription();
         this.address = new Addres(req.getAddressDto());
     }
 
     public void toHire() {
         this.rented = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "id=" + id +
+                ", address=" + address +
+                ", typeProperty=" + typeProperty +
+                ", rentalValue='" + rentalValue + '\'' +
+                ", description='" + description + '\'' +
+                ", rented=" + rented +
+                ", owner=" + owner +
+                '}';
     }
 }

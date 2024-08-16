@@ -1,5 +1,8 @@
 package com.propertymanager.demo.domain.database.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.propertymanager.demo.domain.dtos.UserResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,4 +28,13 @@ public class User {
     private String phone;
     private Boolean active = true;
 
+    public User(UserResponse userResponse) {
+        this.name = userResponse.getName();
+        this.id = userResponse.getId();
+        this.active = true;
+        this.phone = userResponse.getPhone();
+        this.cpf = userResponse.getCpf();
+        this.password = userResponse.getPassword();
+        this.email = userResponse.getEmail();
+    }
 }
