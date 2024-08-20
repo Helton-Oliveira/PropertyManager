@@ -1,5 +1,6 @@
 package com.propertymanager.demo.domain.service;
 
+import com.propertymanager.demo.businessRules.contractRules.ContractRules;
 import com.propertymanager.demo.domain.database.entity.Contract;
 import com.propertymanager.demo.domain.database.repository.ContractRepository;
 import com.propertymanager.demo.domain.dtos.ContractRequest;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,9 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
     @Autowired
     private ContractRepository contractRepository;
 
+    @Autowired
+    private List<ContractRules> validators;
+
     public ContractService(ContractMapper mapper) {
         super(Contract.class, ContractResponse.class, mapper);
     }
@@ -36,6 +41,8 @@ public class ContractService extends ServiceImpl<Contract, Long, ContractRespons
         propertyService.upgradeToRented(property);
 
         var contract = new Contract(property, tenant, req);
+        validators.forEach(v -> v.valid(contract));
+
         contractRepository.save(contract);
         return new ContractResponse(contract, req);
     }
