@@ -16,4 +16,5 @@ public interface IService<T, ID, R, M>{
     R update(ID id, M req) throws JsonProcessingException;
     boolean delete(ID id);
     Page<R> findByCriteria(Map<String, String> queryParams, Pageable page);
+    boolean existById(ID id);
 }

@@ -5,6 +5,7 @@ import com.propertymanager.demo.domain.database.entity.Contract;
 import com.propertymanager.demo.domain.database.repository.ContractRepository;
 import com.propertymanager.demo.domain.dtos.ContractRequest;
 import com.propertymanager.demo.domain.dtos.ContractResponse;
+import com.propertymanager.demo.infra.security.exceptioins.ValidateException;
 import com.propertymanager.demo.mappers.ContractMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

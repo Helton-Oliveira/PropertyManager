@@ -4,6 +4,7 @@ import com.propertymanager.demo.domain.database.entity.Tenant;
 import com.propertymanager.demo.domain.database.repository.TenantRepository;
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
+import com.propertymanager.demo.infra.security.exceptioins.ValidateException;
 import com.propertymanager.demo.mappers.TenantMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class TenantService extends ServiceImpl<Tenant, Long, UserResponse, UserR
     }
 
     public Tenant getReferenceTenantById(Long id) {
+        if(!tenantRepository.existsById(id)) {
+            throw new ValidateException("ERRO! ID do inquilino informado nào existe");
+        }
         return tenantRepository.getReferenceById(id);
     }
 }

@@ -16,8 +16,6 @@ public class PropertyContractValidator implements ContractRules{
     public void valid(Contract data) {
         var contract = repository.searchForPropertyContract(data.getProperty().getId());
 
-        System.out.println(contract);
-
         if(contract != null) {
             if (contract.getValidity().isBefore(data.getValidity())) {
                 throw new ValidateException("Erro ao criar contrato! Propriedade contem um contrato existente até " + contract.getValidity());

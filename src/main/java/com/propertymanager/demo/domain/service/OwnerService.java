@@ -21,4 +21,15 @@ public class OwnerService extends ServiceImpl<Owner, Long,UserResponse, UserRequ
         super(Owner.class, UserResponse.class, mapper);
     }
 
+    @Override
+    public boolean delete(Long id) {
+        if (ownerRepository.existsById(id)) {
+            var entity = ownerRepository.getReferenceById(id);
+            entity.setActive(false);
+            ownerRepository.save(entity);
+            return true;
+        }
+        return false;
+    }
+
 }

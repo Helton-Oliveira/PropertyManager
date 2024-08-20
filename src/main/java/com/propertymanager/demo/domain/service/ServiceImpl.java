@@ -71,6 +71,11 @@ public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> 
         var query = custom.searchByCriteria(entityClass, queryParams, page);
         return query.map(mapper::toDto);
     }
+
+    @Override
+    public boolean existById(ID id) {
+        return repository.existsById(id);
+    }
 }
 
 
