@@ -11,7 +11,8 @@ import java.util.Optional;
 public interface TenantRepository extends JpaRepository<Tenant, Long>{
     Page<Tenant> findByActiveTrue(Pageable page);
 
-
     @Query("SELECT t FROM Tenant t WHERE t.id = :id AND t.active = true")
     Optional<Tenant> searchById(Long id);
+
+    Tenant findByEmail(String email);
 }

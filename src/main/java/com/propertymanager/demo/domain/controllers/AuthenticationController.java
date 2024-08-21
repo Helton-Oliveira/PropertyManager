@@ -1,9 +1,13 @@
 package com.propertymanager.demo.domain.controllers;
 
 import com.propertymanager.demo.domain.database.entity.User;
+import com.propertymanager.demo.domain.database.repository.OwnerRepository;
+import com.propertymanager.demo.domain.database.repository.TenantRepository;
 import com.propertymanager.demo.domain.database.repository.UserRepository;
 import com.propertymanager.demo.domain.dtos.AuthenticationDto;
 import com.propertymanager.demo.domain.dtos.UserRequest;
+import com.propertymanager.demo.domain.service.OwnerService;
+import com.propertymanager.demo.domain.service.TenantService;
 import com.propertymanager.demo.domain.service.UserService;
 import com.propertymanager.demo.infra.security.JwtTokenData;
 import com.propertymanager.demo.infra.security.TokenService;
@@ -27,13 +31,25 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository Userrepository;
+
+    @Autowired
+    private TenantRepository tenantRepository;
+
+    @Autowired
+    private OwnerRepository ownerRepository;
+
+    @Autowired
+    private OwnerService ownerService;
+
+    @Autowired
+    private TenantService tenantService;
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @PostMapping("/login")
     @Transactional
@@ -48,11 +64,34 @@ public class AuthenticationController {
     @PostMapping("/register")
     @Transactional
     public ResponseEntity register(@RequestBody @Valid UserRequest req) {
-        if(this.repository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
+        if(this.Userrepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
 
         req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
         var newUser = userService.save(req);
 
         return ResponseEntity.ok(newUser);
     }
+
+    @PostMapping("/register/tenant")
+    @Transactional
+    public ResponseEntity registerTenant(@RequestBody @Valid UserRequest req) {
+        if(this.tenantRepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
+
+        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
+        var newTenant = tenantService.save(req);
+
+        return ResponseEntity.ok(newTenant);
+    }
+
+    @PostMapping("/register/owner")
+    @Transactional
+    public ResponseEntity registerOwner(@RequestBody @Valid UserRequest req) {
+        if(this.ownerRepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
+
+        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
+        var newOwner = ownerService.save(req);
+
+        return ResponseEntity.ok(newOwner);
+    }
+
 }
