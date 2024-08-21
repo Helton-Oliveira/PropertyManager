@@ -2,7 +2,7 @@ package com.propertymanager.demo.businessRules.propertyRules;
 
 import com.propertymanager.demo.domain.database.repository.OwnerRepository;
 import com.propertymanager.demo.domain.dtos.PropertyRequest;
-import com.propertymanager.demo.infra.security.exceptioins.ValidateException;
+import com.propertymanager.demo.infra.exceptioins.ValidateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

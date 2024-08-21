@@ -5,7 +5,7 @@ import com.propertymanager.demo.domain.database.entity.Property;
 import com.propertymanager.demo.domain.database.repository.PropertyRepository;
 import com.propertymanager.demo.domain.dtos.PropertyRequest;
 import com.propertymanager.demo.domain.dtos.PropertyResponse;
-import com.propertymanager.demo.infra.security.exceptioins.ValidateException;
+import com.propertymanager.demo.infra.exceptioins.ValidateException;
 import com.propertymanager.demo.mappers.PropertyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

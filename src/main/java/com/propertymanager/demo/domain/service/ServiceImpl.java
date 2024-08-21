@@ -50,7 +50,8 @@ public abstract class ServiceImpl<T, ID, R, M> implements IService<T, ID, R, M> 
     @Override
     public R update(ID id, M req) {
         T entity = repository.getReferenceById(id);
-        T dataForUpdate = mapper.toEntity(req);
+        T data = mapper.toEntity(req);
+        R dataForUpdate = mapper.toDto(data);
 
         BeanUtil.copyNonNullProperties(dataForUpdate, entity);
         T updatedEntity = repository.save(entity);

@@ -1,4 +1,4 @@
-package com.propertymanager.demo.infra.security.exceptioins;
+package com.propertymanager.demo.infra.exceptioins;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;

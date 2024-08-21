@@ -2,7 +2,7 @@ package com.propertymanager.demo.businessRules.contractRules;
 
 import com.propertymanager.demo.domain.database.entity.Contract;
 import com.propertymanager.demo.domain.database.repository.ContractRepository;
-import com.propertymanager.demo.infra.security.exceptioins.ValidateException;
+import com.propertymanager.demo.infra.exceptioins.ValidateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

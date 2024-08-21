@@ -20,9 +20,10 @@ public class UserResponse {
    private String cpf;
    private String phone;
    private String email;
+   private String role;
 
    @JsonIgnore
-    private String password;
+   private String password;
 
     public UserResponse(User user) {
         this.id = user.getId();
@@ -30,5 +31,6 @@ public class UserResponse {
         this.cpf = user.getCpf();
         this.phone = user.getPhone();
         this.email = user.getEmail();
+        this.role = user.getRole();
     }
 }

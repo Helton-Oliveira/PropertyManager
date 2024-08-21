@@ -70,6 +70,4 @@ public abstract class Controller<T, ID, R, M> {
         return ResponseEntity.noContent().build();
     }
 
-
-
 }

@@ -1,4 +1,4 @@
-package com.propertymanager.demo.infra.security.exceptioins;
+package com.propertymanager.demo.infra.exceptioins;
 
 public class ValidateException extends RuntimeException{
     public ValidateException(String message) {
