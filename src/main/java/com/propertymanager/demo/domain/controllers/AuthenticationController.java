@@ -1,14 +1,7 @@
 package com.propertymanager.demo.domain.controllers;
 
 import com.propertymanager.demo.domain.database.entity.User;
-import com.propertymanager.demo.domain.database.repository.OwnerRepository;
-import com.propertymanager.demo.domain.database.repository.TenantRepository;
-import com.propertymanager.demo.domain.database.repository.UserRepository;
 import com.propertymanager.demo.domain.dtos.AuthenticationDto;
-import com.propertymanager.demo.domain.dtos.UserRequest;
-import com.propertymanager.demo.domain.service.OwnerService;
-import com.propertymanager.demo.domain.service.TenantService;
-import com.propertymanager.demo.domain.service.UserService;
 import com.propertymanager.demo.infra.security.JwtTokenData;
 import com.propertymanager.demo.infra.security.TokenService;
 import jakarta.transaction.Transactional;
@@ -17,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,24 +23,6 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository Userrepository;
-
-    @Autowired
-    private TenantRepository tenantRepository;
-
-    @Autowired
-    private OwnerRepository ownerRepository;
-
-    @Autowired
-    private OwnerService ownerService;
-
-    @Autowired
-    private TenantService tenantService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
     private TokenService tokenService;
 
     @PostMapping("/login")
@@ -59,39 +33,6 @@ public class AuthenticationController {
         var tokenJWT = tokenService.generateToken((User) auth.getPrincipal());
 
         return ResponseEntity.ok(new JwtTokenData(tokenJWT));
-    }
-
-    @PostMapping("/register")
-    @Transactional
-    public ResponseEntity register(@RequestBody @Valid UserRequest req) {
-        if(this.Userrepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
-
-        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
-        var newUser = userService.save(req);
-
-        return ResponseEntity.ok(newUser);
-    }
-
-    @PostMapping("/register/tenant")
-    @Transactional
-    public ResponseEntity registerTenant(@RequestBody @Valid UserRequest req) {
-        if(this.tenantRepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
-
-        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
-        var newTenant = tenantService.save(req);
-
-        return ResponseEntity.ok(newTenant);
-    }
-
-    @PostMapping("/register/owner")
-    @Transactional
-    public ResponseEntity registerOwner(@RequestBody @Valid UserRequest req) {
-        if(this.ownerRepository.findByEmail(req.getEmail()) != null) return ResponseEntity.badRequest().build();
-
-        req.setPassword(new BCryptPasswordEncoder().encode(req.getPassword()));
-        var newOwner = ownerService.save(req);
-
-        return ResponseEntity.ok(newOwner);
     }
 
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -44,6 +45,12 @@ public class User implements UserDetails {
         this.password = userResponse.getPassword();
         this.email = userResponse.getEmail();
         this.role = userResponse.getRole();
+    }
+
+    public void setPassword(String password) {
+        if (password != null) {
+            this.password = new BCryptPasswordEncoder().encode(password);
+        }
     }
 
     @Override
