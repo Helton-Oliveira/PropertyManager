@@ -63,4 +63,9 @@ public class ErrorHandler {
             this(error.getField(), error.getDefaultMessage());
         }
     }
+
+    @ExceptionHandler(CustomTokenInvalidException.class)
+    public ResponseEntity<Object> handleAuthenticationException(CustomTokenInvalidException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
 }

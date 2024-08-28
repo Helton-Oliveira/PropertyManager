@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity(name = "Tenant")
 @Getter
 @Setter
@@ -22,4 +21,5 @@ public class Tenant extends User {
     public Tenant(UserResponse userResponse) {
         super(userResponse);
     }
+
 }

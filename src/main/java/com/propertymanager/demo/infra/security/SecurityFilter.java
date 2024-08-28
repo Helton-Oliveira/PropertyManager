@@ -1,6 +1,7 @@
 package com.propertymanager.demo.infra.security;
 
 import com.propertymanager.demo.domain.database.repository.UserRepository;
+import com.propertymanager.demo.infra.exceptioins.CustomTokenInvalidException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,25 +18,31 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var tokenJWT = getToken(request);
+        try {
+            var tokenJWT = getToken(request);
 
-        if(tokenJWT != null) {
-            var subject = tokenService.getSubject(tokenJWT);
-            var user = repository.findByEmail(subject);
+            if (tokenJWT != null) {
+                var subject = tokenService.getSubject(tokenJWT);
+                var user = repository.findByEmail(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
+
+        } catch (CustomTokenInvalidException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid token");
+            response.getWriter().flush();
         }
-
-        filterChain.doFilter(request, response);
 
     }
 

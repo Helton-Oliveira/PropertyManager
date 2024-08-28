@@ -17,9 +17,9 @@ public class UserResponse {
 
    private Long id;
    private String name;
+   private String email;
    private String cpf;
    private String phone;
-   private String email;
    private String role;
 
    @JsonIgnore
@@ -33,4 +33,5 @@ public class UserResponse {
         this.email = user.getEmail();
         this.role = user.getRole();
     }
+
 }
