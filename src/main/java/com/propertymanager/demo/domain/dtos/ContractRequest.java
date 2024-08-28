@@ -1,7 +1,6 @@
 package com.propertymanager.demo.domain.dtos;
 
 import com.propertymanager.demo.domain.abstractModels.ContractPeriod;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;

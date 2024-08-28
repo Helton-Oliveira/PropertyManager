@@ -1,8 +1,6 @@
 package com.propertymanager.demo.domain.database.entity;
 
 import com.propertymanager.demo.domain.dtos.ContractRequest;
-import com.propertymanager.demo.domain.dtos.PropertyResponse;
-import com.propertymanager.demo.domain.dtos.UserResponse;
 import com.propertymanager.demo.utils.DateUtils;
 import jakarta.persistence.*;
 import lombok.*;
