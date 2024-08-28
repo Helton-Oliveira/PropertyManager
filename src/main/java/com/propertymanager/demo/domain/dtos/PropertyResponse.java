@@ -1,13 +1,10 @@
 package com.propertymanager.demo.domain.dtos;
 
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.propertymanager.demo.domain.abstractModels.TypeProperty;
 import com.propertymanager.demo.domain.database.entity.Property;
-import com.propertymanager.demo.mappers.GenericMapper;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
+@AllArgsConstructor
 public class PropertyResponse {
 
     private Long id;

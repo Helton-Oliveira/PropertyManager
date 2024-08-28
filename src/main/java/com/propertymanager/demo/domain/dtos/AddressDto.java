@@ -3,12 +3,13 @@ package com.propertymanager.demo.domain.dtos;
 import com.propertymanager.demo.domain.address.Addres;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.amqp.RabbitConnectionDetails;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class AddressDto {
     @NotBlank
     private String publicPlace;
