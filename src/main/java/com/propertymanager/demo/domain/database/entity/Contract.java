@@ -42,6 +42,16 @@ public class Contract {
         this.validity = DateUtils.calculateFutureDate(this.getCreated(), req.getContractPeriod());
     }
 
+    public Contract(Contract contract) {
+        this.id = contract.getId();
+        this.tenant = contract.getTenant();
+        this.property = contract.getProperty();
+        this.status = contract.getStatus();
+        this.negotiatedPrice = contract.getNegotiatedPrice();
+        this.created = contract.getCreated();
+        this.validity = contract.getValidity();
+    }
+
     @Override
     public String toString() {
         return "Contract{" +

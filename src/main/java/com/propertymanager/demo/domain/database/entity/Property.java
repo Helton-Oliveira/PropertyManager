@@ -2,6 +2,7 @@ package com.propertymanager.demo.domain.database.entity;
 
 import com.propertymanager.demo.domain.abstractModels.TypeProperty;
 import com.propertymanager.demo.domain.address.Addres;
+import com.propertymanager.demo.domain.dtos.AddressDto;
 import com.propertymanager.demo.domain.dtos.PropertyRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
 import jakarta.persistence.*;
@@ -38,6 +39,16 @@ public class Property {
         this.owner = new Owner(owner);
         this.description = req.getDescription();
         this.address = new Addres(req.getAddressDto());
+    }
+
+    public Property(Property original) {
+        this.id = original.id;
+        this.address = new Addres(original.address);
+        this.typeProperty = original.typeProperty;
+        this.rentalValue = original.rentalValue;
+        this.description = original.description;
+        this.rented = original.rented;
+        this.owner = original.owner;
     }
 
     public void toHire() {

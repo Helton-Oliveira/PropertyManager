@@ -27,4 +27,13 @@ public class Addres {
         this.city = addressDto.getCity();
         this.uf = addressDto.getUf();
     }
+
+    public Addres(Addres original) {
+        this.publicPlace = original.getPublicPlace();
+        this.neighborhood = original.getNeighborhood();
+        this.zipCode = original.getZipCode();
+        this.number = original.getNumber();
+        this.city = original.getCity();
+        this.uf = original.getUf();
+    }
 }

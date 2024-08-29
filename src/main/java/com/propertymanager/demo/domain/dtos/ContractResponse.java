@@ -27,7 +27,6 @@ public class ContractResponse {
     private Long propertyId;
     private Long tenantId;
 
-
     public ContractResponse(Contract contract, ContractRequest req) {
         this.id = contract.getId();
         this.tenantId = contract.getTenant().getId();

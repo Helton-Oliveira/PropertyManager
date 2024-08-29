@@ -15,5 +15,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query(value = "SELECT COUNT(*) FROM (SELECT 1 FROM User WHERE role = :role LIMIT 1) AS limited_users", nativeQuery = true)
     Long countByRole(String role);
 
-    Long findFirstUserIdByRole(String admin);
 }
