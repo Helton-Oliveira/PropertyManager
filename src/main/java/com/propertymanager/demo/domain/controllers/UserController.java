@@ -4,6 +4,7 @@ import com.propertymanager.demo.domain.database.entity.User;
 import com.propertymanager.demo.domain.dtos.UserRequest;
 import com.propertymanager.demo.domain.dtos.UserResponse;
 import com.propertymanager.demo.domain.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
 @RequestMapping("/users")
+@SecurityRequirement(name = "bearer-key")
 public class UserController extends Controller<User, Long, UserResponse, UserRequest> {
 
     @Autowired

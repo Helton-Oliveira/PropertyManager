@@ -4,6 +4,7 @@ import com.propertymanager.demo.domain.database.entity.Property;
 import com.propertymanager.demo.domain.dtos.PropertyRequest;
 import com.propertymanager.demo.domain.dtos.PropertyResponse;
 import com.propertymanager.demo.domain.service.PropertyService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/property")
+@SecurityRequirement(name = "bearer-key")
 public class PropertyController extends Controller<Property, Long, PropertyResponse, PropertyRequest> {
 
     @Autowired

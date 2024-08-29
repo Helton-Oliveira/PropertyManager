@@ -29,6 +29,7 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    authorize.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll();
                     authorize.requestMatchers(HttpMethod.GET, "/tenant/{id}").hasRole("TENANT");
                     authorize.requestMatchers(HttpMethod.GET, "/owner/{id}").hasRole("OWNER");
                     authorize.requestMatchers(HttpMethod.PUT, "/tenant/{id}").hasRole("TENANT");

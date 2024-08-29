@@ -4,6 +4,7 @@ import com.propertymanager.demo.domain.database.entity.Contract;
 import com.propertymanager.demo.domain.dtos.ContractRequest;
 import com.propertymanager.demo.domain.dtos.ContractResponse;
 import com.propertymanager.demo.domain.service.ContractService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/contract")
+@SecurityRequirement(name = "bearer-key")
 public class ContractController extends Controller<Contract, Long, ContractResponse, ContractRequest>{
 
     @Autowired
